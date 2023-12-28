@@ -106,8 +106,13 @@ app_lcore_main_loop(__attribute__((unused)) void *arg) {
         app_main_loop_forwarding();
         return 0;
     }
+    if(lcore==app.core_test)
+    {
+        app_main_loop_test();
+        return 0;
+    }
 
-    if (app.n_lcores >= 2+app.n_ports) {
+    if (app.n_lcores >= 3+app.n_ports) {
         for (i = 0; i < app.n_ports; i++) {
             if (lcore == app.core_tx[i]) {
                 app_main_loop_tx_each_port(i);
